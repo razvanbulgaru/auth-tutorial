@@ -1,26 +1,12 @@
-import { auth, signOut } from '@/auth';
+import { LogoutButton } from '@/components/auth/logout-button';
 import { Button } from '@/components/ui/button';
 
-const SettingsPage = async () => {
-	const session = await auth();
-
+const SettingsPage = () => {
 	return (
 		<div>
-			{JSON.stringify(session)}
-			<form
-				action={async () => {
-					'use server';
-					await signOut();
-				}}
-			>
-				<Button
-					variant={'destructive'}
-					type="submit"
-					className="mx-3 my-5"
-				>
-					Sign out
-				</Button>
-			</form>
+			<LogoutButton>
+				<Button variant={'destructive'}>Sign out</Button>
+			</LogoutButton>
 		</div>
 	);
 };
