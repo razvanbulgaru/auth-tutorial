@@ -11,12 +11,6 @@ import { generateVerificationToken } from '@/lib/tokens';
 import { sendVerificationEmail } from '@/lib/mail';
 
 export const settings = async (values: z.infer<typeof SettingsSchema>) => {
-	// const validatedFields = SettingsSchema.safeParse(values);
-
-	// if (!validatedFields.success) {
-	// 	return { error: 'Invalid fields!' };
-	// }
-
 	const user = await currentUser();
 	if (!user) return { error: 'Unauthorized' };
 
