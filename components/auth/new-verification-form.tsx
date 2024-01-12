@@ -47,7 +47,7 @@ const NewVerificationForm = () => {
 			<div className="flex items-center w-full justify-center">
 				{!success && !error && <DotLoader color="#87CEEB" />}
 				<FormError message={error} />
-				{!success && <FormSuccess message={success} />}
+				{success && <FormSuccess message={success} />}
 			</div>
 		</CardWrapper>
 	);
