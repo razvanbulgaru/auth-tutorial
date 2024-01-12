@@ -9,7 +9,7 @@ const Logo = () => {
 	return (
 		<Section className="mt-8">
 			<Img
-				src={`${baseUrl}/static/moto-hai.svg`}
+				src={`${baseUrl}/static/moto-hai.png`}
 				width="150"
 				height="150"
 				alt="Moto Hai"
