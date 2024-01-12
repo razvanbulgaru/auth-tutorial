@@ -1,9 +1,7 @@
 import { Img, Section } from '@react-email/components';
 import * as React from 'react';
 
-const baseUrl = process.env.VERCEL_URL
-	? `https://${process.env.VERCEL_URL}`
-	: '';
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
 
 const Logo = () => {
 	return (
