@@ -40,9 +40,9 @@ const NewVerificationForm = () => {
 
 	return (
 		<CardWrapper
-			headerLabel="Confirming your verification"
+			headerLabel="Confirmăm link-ul de verificare"
 			backButtonHref="/auth/login"
-			backButtonLable="Back to login"
+			backButtonLable="Înapoi la login"
 		>
 			<div className="flex items-center w-full justify-center">
 				{!success && !error && <DotLoader color="#87CEEB" />}

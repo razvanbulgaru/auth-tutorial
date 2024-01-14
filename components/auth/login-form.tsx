@@ -54,30 +54,28 @@ export const LoginForm = () => {
 		setSuccess('');
 
 		startTransition(() => {
-			login(values, callbackUrl)
-				.then((data) => {
-					if (data.error) {
-						form.reset();
-						setError(data.error);
-					}
+			login(values, callbackUrl).then((data) => {
+				if (data.error) {
+					form.reset();
+					setError(data.error);
+				}
 
-					if (data.success) {
-						form.reset();
-						setSuccess(data.error);
-					}
+				if (data.success) {
+					form.reset();
+					setSuccess(data.error);
+				}
 
-					if (data.twoFactor) {
-						setShowTwoFactor(true);
-					}
-				})
-				.catch(() => setError('Something went wrong!'));
+				if (data.twoFactor) {
+					setShowTwoFactor(true);
+				}
+			});
 		});
 	};
 
 	return (
 		<CardWrapper
-			headerLabel="Welcome back"
-			backButtonLable="Don't have an account?"
+			headerLabel="Bine ai revenit"
+			backButtonLable="Nu ai cont?"
 			backButtonHref="/auth/register"
 			showSocial
 		>
@@ -98,7 +96,7 @@ export const LoginForm = () => {
 											<FormControl>
 												<Input
 													{...field}
-													placeholder="john.doe@example.com"
+													placeholder="email@exemplu.com"
 													type="email"
 													disabled={isPending}
 												/>
@@ -112,7 +110,7 @@ export const LoginForm = () => {
 									name="password"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Password</FormLabel>
+											<FormLabel>Parolă</FormLabel>
 											<FormControl>
 												<Input
 													{...field}
@@ -128,7 +126,7 @@ export const LoginForm = () => {
 												className="px-0 font-normal"
 											>
 												<Link href={'/auth/reset'}>
-													Forgot password?
+													Ai uitat parola?
 												</Link>
 											</Button>
 											<FormMessage />
@@ -143,7 +141,9 @@ export const LoginForm = () => {
 								name="code"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Two Factor Code</FormLabel>
+										<FormLabel>
+											Cod de autentificare
+										</FormLabel>
 										<FormControl>
 											<Input
 												{...field}
@@ -164,7 +164,7 @@ export const LoginForm = () => {
 						className="w-full"
 						disabled={isPending}
 					>
-						{showTwoFactor ? 'Confirm' : 'Login'}
+						{showTwoFactor ? 'Confirmă' : 'Intră în cont'}
 					</Button>
 				</form>
 			</Form>

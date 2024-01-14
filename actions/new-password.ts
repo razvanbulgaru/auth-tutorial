@@ -14,30 +14,30 @@ export const newPassword = async (
 	token: string | null
 ) => {
 	if (!token) {
-		return { error: 'Missing token!' };
+		return { error: 'Lipsă token!' };
 	}
 
 	const validatedFields = NewPasswordSchema.safeParse(values);
 
 	if (!validatedFields.success) {
-		return { error: 'Invalid fields!' };
+		return { error: 'Câmpuri invalide!' };
 	}
 
 	const { password } = validatedFields.data;
 
 	const existingToken = await getPasswordResetTokenByToken(token);
 	if (!existingToken) {
-		return { error: 'Invalid token!' };
+		return { error: 'Cod invalid!' };
 	}
 
 	const hasExpired = new Date(existingToken.expires) < new Date();
 	if (hasExpired) {
-		return { error: 'Token has expired!' };
+		return { error: 'Codul a expirat!' };
 	}
 
 	const existingUser = await getUserByEmail(existingToken.email);
 	if (!existingUser) {
-		return { error: 'Email does not exist!' };
+		return { error: 'Email inexistent!' };
 	}
 
 	const hashedPassword = await bcrypt.hash(password, 10);
@@ -49,5 +49,5 @@ export const newPassword = async (
 
 	await db.passwordResetToken.delete({ where: { id: existingToken.id } });
 
-	return { success: 'Password updated!' };
+	return { success: 'Parola a fost schimbată!' };
 };

@@ -76,9 +76,7 @@ const SettingsPage = () => {
 	return (
 		<Card className="w-[600px]">
 			<CardHeader>
-				<p className="text-2xl text-center font-semibold">
-					⚙️ Settings
-				</p>
+				<p className="text-2xl text-center font-semibold">⚙️ Setări</p>
 			</CardHeader>
 			<CardContent>
 				<Form {...form}>
@@ -92,7 +90,7 @@ const SettingsPage = () => {
 								name="name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Name</FormLabel>
+										<FormLabel>Nume</FormLabel>
 										<FormControl>
 											<Input
 												{...field}
@@ -108,29 +106,11 @@ const SettingsPage = () => {
 								<>
 									<FormField
 										control={form.control}
-										name="email"
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel>Email</FormLabel>
-												<FormControl>
-													<Input
-														{...field}
-														placeholder="john.doe@example.com"
-														type="email"
-														disabled={isPending}
-													/>
-												</FormControl>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-									<FormField
-										control={form.control}
 										name="password"
 										render={({ field }) => (
 											<FormItem>
 												<FormLabel>
-													Old password
+													Parola actuală
 												</FormLabel>
 												<FormControl>
 													<Input
@@ -150,7 +130,7 @@ const SettingsPage = () => {
 										render={({ field }) => (
 											<FormItem>
 												<FormLabel>
-													New password
+													Parola nouă
 												</FormLabel>
 												<FormControl>
 													<Input
@@ -171,7 +151,7 @@ const SettingsPage = () => {
 								name="role"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Role</FormLabel>
+										<FormLabel>Rol</FormLabel>
 										<Select
 											disabled={isPending}
 											onValueChange={field.onChange}
@@ -207,12 +187,11 @@ const SettingsPage = () => {
 										<FormItem className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
 												<FormLabel>
-													Two Factor Authentication
+													Cod de autentificare
 												</FormLabel>
 												<FormDescription>
-													Enable two factor
-													authentication for your
-													account
+													Activează opțiunea de a te
+													autentifica în doi pași
 												</FormDescription>
 											</div>
 											<FormControl>
@@ -233,7 +212,7 @@ const SettingsPage = () => {
 						<FormError message={error} />
 						<FormSuccess message={success} />
 						<Button type="submit" disabled={isPending}>
-							Save
+							Salvează schimbările
 						</Button>
 					</form>
 				</Form>

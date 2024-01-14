@@ -25,14 +25,14 @@ export const login = async (
 	const validatedFields = LoginSchema.safeParse(values);
 
 	if (!validatedFields.success) {
-		return { error: 'Invalid fields!' };
+		return { error: 'Câmpuri invalide!' };
 	}
 
 	const { email, password, code } = validatedFields.data;
 
 	const existingUser = await getUserByEmail(email);
 	if (!existingUser || !existingUser.email || !existingUser.password) {
-		return { error: 'Invalid credentials!' };
+		return { error: 'Credențiale invalide!' };
 	}
 
 	if (!existingUser.emailVerified) {
@@ -45,7 +45,7 @@ export const login = async (
 			verificationToken.token
 		);
 
-		return { success: 'Confirmation email sent!' };
+		return { success: 'Email de confirmare trimis!' };
 	}
 
 	if (existingUser.isTwoFactorEnabled) {
@@ -55,16 +55,16 @@ export const login = async (
 			);
 
 			if (!twoFactorToken) {
-				return { error: 'Invalid code!' };
+				return { error: 'Cod invalid!' };
 			}
 
 			if (twoFactorToken.token !== code) {
-				return { error: 'Invalid code!' };
+				return { error: 'Cod invalid!' };
 			}
 
 			const hasExpired = new Date(twoFactorToken.expires) < new Date();
 			if (hasExpired) {
-				return { error: 'Code expired!' };
+				return { error: 'Codul a expirat!' };
 			}
 
 			await db.twoFactorToken.delete({
@@ -107,14 +107,14 @@ export const login = async (
 		if (error instanceof AuthError) {
 			switch (error.type) {
 				case 'CredentialsSignin':
-					return { error: 'Invalid credentials!' };
+					return { error: 'Credențiale invalide!' };
 				default:
-					return { error: 'Something went wrong!' };
+					return { error: 'Ceva nu a funcționat cum trebuie!' };
 			}
 		}
 
 		throw error;
 	}
 
-	return { success: 'Success!' };
+	return { success: 'Te-ai logat cu succes!' };
 };

@@ -4,8 +4,8 @@ import CardWrapper from '@/components/auth/card-wrapper';
 const ErrorCard = () => {
 	return (
 		<CardWrapper
-			headerLabel="Oops! Something went wrong!"
-			backButtonLable="Back to login"
+			headerLabel="Oops! Ceva nu a funcționat!"
+			backButtonLable="Înapoi la login"
 			backButtonHref="/auth/login"
 		>
 			<div className="w-full flex items-center justify-center">

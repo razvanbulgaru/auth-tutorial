@@ -11,14 +11,14 @@ export const resetPassword = async (values: z.infer<typeof ResetSchema>) => {
 	const validatedFields = ResetSchema.safeParse(values);
 
 	if (!validatedFields.success) {
-		return { error: 'Invalid fields!' };
+		return { error: 'Câmpuri invalide' };
 	}
 
 	const { email } = validatedFields.data;
 
 	const existingUser = await getUserByEmail(email);
 	if (!existingUser || !existingUser.email) {
-		return { error: 'Email not found!' };
+		return { error: 'Adresa de email nu a fost găsită!' };
 	}
 
 	const passwordResetToken = await generatePasswordResetToken(
@@ -30,5 +30,5 @@ export const resetPassword = async (values: z.infer<typeof ResetSchema>) => {
 		passwordResetToken.token
 	);
 
-	return { success: 'Reset email sent!' };
+	return { success: 'Email de resetare trimis!' };
 };

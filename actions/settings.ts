@@ -3,42 +3,23 @@ import * as z from 'zod';
 
 import bcrypt from 'bcryptjs';
 
-import { getUserByEmail, getUserById } from '@/data/user';
+import { getUserById } from '@/data/user';
 import { currentUser } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { SettingsSchema } from '@/schemas';
-import { generateVerificationToken } from '@/lib/tokens';
-import { sendVerificationEmail } from '@/lib/mail';
 
 export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 	const user = await currentUser();
-	if (!user) return { error: 'Unauthorized' };
+	if (!user) return { error: 'Acces neautorizat' };
 
 	const dbUser = await getUserById(user.id);
-	if (!dbUser) return { error: 'Unauthorized' };
+	if (!dbUser) return { error: 'Acces neautorizat' };
 
 	if (user.isOAuth) {
 		values.email = undefined;
 		values.password = undefined;
 		values.newPassword = undefined;
 		values.isTwoFactorEnabled = undefined;
-	}
-
-	if (values.email && values.email !== user.email) {
-		const existingUser = await getUserByEmail(values.email);
-
-		if (existingUser && existingUser.id !== user.id) {
-			return { error: 'Email aleady in use!' };
-		}
-
-		const verificationToken = await generateVerificationToken(values.email);
-
-		await sendVerificationEmail(
-			verificationToken.email,
-			verificationToken.token
-		);
-
-		return { success: 'Verification email sent!' };
 	}
 
 	if (values.password && values.newPassword && dbUser.password) {
@@ -48,7 +29,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 		);
 
 		if (!passwordsMatch) {
-			return { error: 'Incorrect password!' };
+			return { error: 'Parolă incorectă!' };
 		}
 
 		const hashedPassword = await bcrypt.hash(values.newPassword, 10);
@@ -59,5 +40,5 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 
 	await db.user.update({ where: { id: user.id }, data: { ...values } });
 
-	return { success: 'Settings updated!' };
+	return { success: 'Setările au fost schimbate!' };
 };

@@ -15,7 +15,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 	const validatedFields = RegisterSchema.safeParse(values);
 
 	if (!validatedFields.success) {
-		return { error: 'Invalid fields!' };
+		return { error: 'Câmpuri invalide!' };
 	}
 
 	const { name, email, password } = validatedFields.data;
@@ -23,7 +23,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
 	const existingUser = await getUserByEmail(email);
 	if (existingUser) {
-		return { error: 'Email already in use!' };
+		return { error: 'Email-ul este folosit deja!' };
 	}
 
 	await db.user.create({ data: { name, email, password: hashedPassword } });
@@ -35,5 +35,5 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 		verificationToken.token
 	);
 
-	return { success: 'Confirmation email sent!' };
+	return { success: 'Email de confirmare trimis!' };
 };
